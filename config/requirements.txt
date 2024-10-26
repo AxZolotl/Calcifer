@@ -2,5 +2,6 @@ customtkinter==5.2.2
 mysqlclient==2.2.5
 SQLAlchemy==2.0.36
 opencv-python==4.10.0.84
+cv2-enumerate-cameras==1.1.16
 flirpy==0.3.0
 bme280==0.7
