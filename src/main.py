@@ -10,8 +10,11 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        self.width = self.winfo_screenwidth()
+        self.height = self.winfo_screenheight()
+        
         self.title("CalciferNet")
-        self.geometry(f"{self.winfo_screenwidth()}x{self.winfo_screenheight()}")
+        self.geometry(f"{self.width}x{self.height}")
         self.resizable(False, False)
     
         self.app_view = AppView(self)
