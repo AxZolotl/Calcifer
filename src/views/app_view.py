@@ -4,11 +4,7 @@ from components.log_area import LogArea
 
 class AppView(ctk.CTkFrame):
     def __init__(self, master=None, **kwargs):
-        super().__init__(
-            master, 
-            fg_color='white', 
-            **kwargs
-        )
+        super().__init__(master, fg_color='white', **kwargs)
         
         self.grid(row=0, column=0, sticky="nsew")
         self.pack(fill="both", expand=True)
