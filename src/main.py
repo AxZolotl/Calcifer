@@ -1,24 +1,42 @@
 import customtkinter as ctk
+import threading
 
-from views.app_view import AppView
+from views.display import Display
+from views.log_area import LogArea
 
-# Initialize customtkinter
-ctk.set_appearance_mode("Dark")  # Can be "System", "Dark" or "Light"
-ctk.set_default_color_theme("dark-blue")  # Sets a default theme color
+from modules.app_state import AppState
+from modules.log_client import LogClient
 
+ctk.set_appearance_mode("Dark")
+ctk.set_default_color_theme("dark-blue")
+        
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-
-        self.width = self.winfo_screenwidth()
-        self.height = self.winfo_screenheight()
-        
-        self.title("CalciferNet")
-        self.geometry(f"{self.width}x{self.height}")
-        self.resizable(False, False)
     
-        self.app_view = AppView(self)
-
+        self.title("CalciferNet")
+        
+        self.app_state = AppState()
+        self.app_state.initialize_state()
+        
+        self.logger = LogClient()
+        self.logger.initialize_logger()
+        
+        self.init_layout()
+        self.init_ui()
+        
+        self.after(0, self.state, 'zoomed')
+        
+        threading.Thread(target=self.app_state.update_state).start()
+        
+    def init_layout(self):
+        self.columnconfigure(0, weight=67)
+        self.columnconfigure(1, weight=33)
+        self.rowconfigure(0, weight=1)
+        
+    def init_ui(self):
+        Display(self)
+        LogArea(self)
+    
 if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+    App().mainloop()
