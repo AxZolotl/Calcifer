@@ -25,9 +25,9 @@ WORKDIR $APP_HOME
 # Copy local code to the container image.
 COPY . /app
 
-# Install Python dependencies (from config/requirements.txt)
-COPY config/requirements.txt /app/config/
-RUN pip install --upgrade pip && pip install --root-user-action=ignore -r /app/config/requirements.txt
+# Install Python dependencies (from requirements.txt)
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install --root-user-action=ignore -r /app/requirements.txt
 
 # Give execution permissions to the entrypoint script
 RUN chmod +x /app/entrypoint.sh
