@@ -26,7 +26,7 @@ services:
           ignore:
             - src/__pycache__/
         - action: rebuild
-          path: config/requirements.txt
+          path: requirements.txt
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
@@ -35,6 +35,8 @@ services:
       DISPLAY: host.docker.internal:0
     volumes:
       - .:/app
+    devices:
+      - "/dev:dev"
     depends_on:
       - db
 
