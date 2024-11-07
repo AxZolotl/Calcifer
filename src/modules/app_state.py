@@ -15,17 +15,14 @@ class AppState:
         return self._instance
     
     def initialize_state(self):
-        self._status = tk.StringVar(value="initializing")
         self._camera = None
         self._camera_detected = tk.BooleanVar(value=False)
         self._predicting = tk.BooleanVar(value=False)
         self._recording = tk.BooleanVar(value=False)
-        
-        self._logger = LogClient()
 
     @property
-    def status(self):
-        return self._status
+    def instance(self):
+        return self._instance
     
     @property
     def camera(self):
@@ -43,17 +40,16 @@ class AppState:
     def recording(self):
         return self._recording
     
-    def update_state(self):
-        self._logger.log("Detecting camera...", "info")
-        
+    def update_camera(self):
         self._camera = detect_camera()
         
-        if self.camera:
-            self._logger.log("Camera detected: {}.".format(self.camera.name), "info")
-            self.camera_detected.set(True)
+        if self._camera:
+            self._camera_detected.set(True)
         else:
-            self._logger.log("No camera detected.", 'warning')
+            self._camera_detected.set(False)
+            
+    def update_state(self):
+        self.update_camera()
         
-        self._logger.log("Connecting to the database...", "info")
         self.db = DBClient()
         self.db.init_connection()

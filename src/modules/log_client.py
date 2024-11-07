@@ -34,10 +34,10 @@ class LogClient:
         custom_handler.setLevel(logging.INFO)
         
         formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+        
         file_handler.setFormatter(formatter)
         console_handler.setFormatter(formatter)
         custom_handler.setFormatter(formatter)
-        
 
         self.logger.addHandler(file_handler)
         self.logger.addHandler(console_handler)

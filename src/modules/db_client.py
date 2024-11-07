@@ -14,6 +14,7 @@ class DBClient:
     def init_connection(self):
         self._connected = False
         self._logger = LogClient()
+        self._logger.log("Connecting to the database...", "info")
         
         config = ConfigParser()
         config.read('.env')

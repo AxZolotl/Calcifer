@@ -17,26 +17,20 @@ class App(ctk.CTk):
         self.title("CalciferNet")
         
         self.app_state = AppState()
-        self.app_state.initialize_state()
-        
         self.logger = LogClient()
+        
+        self.app_state.initialize_state()
         self.logger.initialize_logger()
         
-        self.init_layout()
-        self.init_ui()
-        
-        self.after(0, self.state, 'zoomed')
-        
-        threading.Thread(target=self.app_state.update_state).start()
-        
-    def init_layout(self):
         self.columnconfigure(0, weight=67)
         self.columnconfigure(1, weight=33)
         self.rowconfigure(0, weight=1)
         
-    def init_ui(self):
         Display(self)
         LogArea(self)
+        
+        self.after(0, self.state, 'zoomed')        
+        threading.Thread(target=self.app_state.update_state).start()
     
 if __name__ == "__main__":
     App().mainloop()
